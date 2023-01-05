@@ -13,7 +13,10 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>net.coffeetariat.cafe</name>
     <description>net.coffeetariat.cafe</description>
+
     <properties>
+        <javax.activation.version>1.2.0</javax.activation.version>
+        <jaxb.api.version>2.3.0</jaxb.api.version>
         <java.version>17</java.version>
         <spring-cloud.version>2022.0.0</spring-cloud.version>
     </properties>
@@ -127,6 +130,38 @@
         <version>1.2.1</version>
         <scope>runtime</scope>
         </dependency>
+
+<!--        <dependency>-->
+<!--        <groupId>jakarta.xml.ws</groupId>-->
+<!--        <artifactId>jakarta.xml.ws-api</artifactId>-->
+<!--        <version>2.3.2</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--        <groupId>com.sun.xml.ws</groupId>-->
+<!--        <artifactId>runtime</artifactId>-->
+<!--        <version>2.3.2</version>-->
+<!--        <scope>runtime</scope>-->
+<!--        </dependency>-->
+        <dependency>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>javax.activation</artifactId>
+            <version>${javax.activation.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>${jaxb.api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-core</artifactId>
+            <version>${jaxb.api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>${jaxb.api.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -182,6 +217,40 @@
                     </excludes>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxws-maven-plugin</artifactId>
+                <version>2.6</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>wsimport</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!-- The name of your generated source package -->
+                    <packageName>pmix3.wsdl</packageName>
+                    <wsdlDirectory>${project.build.directory}</wsdlDirectory>
+                    <wsdlUrls>
+                        <wsdlUrl>${project.basedir}/doc/pmix3/PMIX2_Trusted_Service.wsdl</wsdlUrl>
+                    </wsdlUrls>
+                    <xnocompile>false</xnocompile>
+                    <xadditionalHeaders>true</xadditionalHeaders>
+                    <verbose>true</verbose>
+                    <sourceDestDir>${project.basedir}/gensrc/pmix3/wsdl/</sourceDestDir>
+                </configuration>
+
+<!--                &lt;!&ndash; if you want to use a specific version of JAX-WS, you can do so like this &ndash;&gt;-->
+<!--                <dependencies>-->
+<!--                    <dependency>-->
+<!--                        <groupId>com.sun.xml.ws</groupId>-->
+<!--                        <artifactId>jaxws-tools</artifactId>-->
+<!--                        <version>2.2.5</version>-->
+<!--                    </dependency>-->
+<!--                </dependencies>-->
+            </plugin>
+
         </plugins>
 
     </build>
