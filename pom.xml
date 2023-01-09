@@ -162,6 +162,18 @@
             <artifactId>jaxb-impl</artifactId>
             <version>${jaxb.api.version}</version>
         </dependency>
+
+        <!-- Needed for generation of the PMIX2 wsdl code -->
+        <dependency>
+            <groupId>javax.xml.ws</groupId>
+            <artifactId>jaxws-api</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.jws</artifactId>
+            <version>3.1.1</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -239,8 +251,11 @@
                     <xadditionalHeaders>true</xadditionalHeaders>
                     <verbose>true</verbose>
                     <sourceDestDir>${project.basedir}/gensrc/pmix3/wsdl/</sourceDestDir>
+                    <genJWS>true</genJWS>
+                    <extension>true</extension>
+                    <implPortName>WsBasicProfile</implPortName>
+                    <implServiceName>pmp</implServiceName>
                 </configuration>
-
 <!--                &lt;!&ndash; if you want to use a specific version of JAX-WS, you can do so like this &ndash;&gt;-->
 <!--                <dependencies>-->
 <!--                    <dependency>-->
