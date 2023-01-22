@@ -1,0 +1,9 @@
+<jxb:bindings version="1.0"
+              xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+              xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <jxb:bindings schemaLocation="/home/granowski/Programming/net.coffeetariat.cafe/doc/NIEM-Releases-niem-5.1/xsd/niem-core.xsd">
+        <jxb:bindings node="//xs:complexType[@name='AssociationType']">
+            <jxb:class name="AssociationTypeFromNiemCore"/>
+        </jxb:bindings>
+    </jxb:bindings>
+</jxb:bindings>

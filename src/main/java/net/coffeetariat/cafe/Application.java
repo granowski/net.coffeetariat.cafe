@@ -1,56 +1,36 @@
 package net.coffeetariat.cafe;
 
-import net.coffeetariat.cafe.jaxb.niem.DateType;
-import net.coffeetariat.cafe.jaxb.niem.PersonNameTextType;
-import net.coffeetariat.cafe.jaxb.niem.PersonNameType;
-import net.coffeetariat.cafe.jaxb.niem.PersonType;
-import org.springframework.boot.SpringApplication;
+//import net.coffeetariat.cafe.jaxb.niem.DateType;
+//import net.coffeetariat.cafe.jaxb.niem.PersonNameTextType;
+//import net.coffeetariat.cafe.jaxb.niem.PersonNameType;
+//import net.coffeetariat.cafe.jaxb.niem.PersonType;
+//import org.springframework.boot.SpringApplication;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlFactory;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
+import gov.niem.release.niem.niem_core._5.PersonNameType;
+import gov.niem.release.niem.niem_core._5.PersonType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.xml.crypto.dsig.XMLObject;
+import java.util.List;
 
 @SpringBootApplication
 public class Application {
 
-    public static void main(String[] args) {
-        net.coffeetariat.cafe.jaxb.niem.PersonType pt = new PersonType();
+    public static void main(String[] args) throws JsonProcessingException {
+        ObjectMapper om = new ObjectMapper(new YAMLFactory());
+        XmlMapper xmlOm = new XmlMapper();
 
-        var dt = new DateType();
-        var dr = dt.getDateRepresentation();
-//        dr.add
-        pt.getPersonBirthDate().add(dt);
+        gov.niem.release.niem.niem_core._5.PersonType personType = new PersonType();
+        List<PersonNameType> names = personType.getPersonName();
+        var nm1 = new PersonNameType();
+        nm1.setPersonNameCommentText("Rawr a name goes here!");
+        names.add(nm1);
 
-        var pnt = new PersonNameType();
-        var pgn = pnt.getPersonGivenName();
-        var pgnt = new PersonNameTextType();
-        pgnt.setValue("Derrick");
-        pgn.add(pgnt);
-        var bleh = pt.getPersonName();
-        bleh.add(pnt);
-
-        java.lang.System.out.println(pt.toString());
-//        net.coffeetariat.cafe
-//        gov.niem.release.niem.niemCore.x50.EmployeeDocument ed = new EmployeeDocumentImpl(EmployeeDocument.type);
-//        PersonType g = ed.addNewEmployee();
-//        g.insertNewPersonBirthDate(0).insertNewDateRepresentation(0);
-//        g.addNewPersonBirthDate().addNewDateRepresentation();
-//
-//
-//        ContactEmailIDDocument doc = new ContactEmailIDDocumentImpl(ContactEmailIDDocument.type);
-//        var s = new StringImpl(gov.niem.release.niem.proxy.niemXs.x50.String.type);
-//        doc.setContactEmailID(s);
-//
-//        java.lang.System.out.println(doc.toString());
-
-//        var edf = new EmployeeDocument.Factory.parse();
-//        ed.addNewEmployee();
-//        System.out.println(ed.toString());
-//        PersonType granowski;
-//        DateType birthDate;
-//        birthDate.setDateRepresentationArray(dateXmlObject);
-//        granowski.setPersonBirthDateArray(new DateType[] { birthDate });
-
-//        SpringApplication.run(Application.class, args);
+        System.out.println(om.writeValueAsString(personType));
+        System.out.println(xmlOm.writeValueAsString(personType));
     }
-
 }
