@@ -4,8 +4,6 @@ This Web API hosts many features for various functionality in the form of REST e
 
 ## Regenerating the NIEM Core classes
 
-First install the [XmlBeans](https://xmlbeans.apache.org/) library from Apache.
-Then you can run the following command and it will generate a folder with all the java sources and a jar for linking:
-```shell
-scomp ./doc/NIEM-Releases-niem-5.1/xsd/niem-core.xsd -src ./src/main/java/ -out jars/niem-xmltypes.jar
-```
+The NIEM core classes should generate automatically through the maven build. The jaxb2-maven-plugin is configured to
+read the NIEM core and pulls in all the imported schemas and etc and generates everything.
+Surprisingly, this was all able to be done without binding files.
