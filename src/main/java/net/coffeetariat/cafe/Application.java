@@ -27,7 +27,7 @@ public class Application {
         gov.niem.release.niem.niem_core._5.PersonType personType = new PersonType();
         List<PersonNameType> names = personType.getPersonName();
         var nm1 = new PersonNameType();
-        nm1.setPersonNameCommentText("Rawr a name goes here!");
+        nm1.setPersonNameCommentText("Rawr! A comment about a name goes here!");
         names.add(nm1);
 
         System.out.println(om.writeValueAsString(personType));
