@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/wwwauthenticate")
+@RequestMapping("/www-authenticate")
 public class WorldWideWebAuthenticate {
     @GetMapping
     public ResponseEntity get() {
