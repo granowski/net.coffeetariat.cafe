@@ -8,6 +8,39 @@ The NIEM core classes should generate automatically through the maven build. The
 read the NIEM core and pulls in all the imported schemas and etc and generates everything.
 Surprisingly, this was all able to be done without binding files.
 
+## Running the Cafe Application
+
+The project contains multiple application classes. To run the Cafe service specifically, use the following command:
+
+```bash
+./mvnw spring-boot:run -Dspring-boot.run.mainClass=net.coffeetariat.cafe.Application
+```
+
+The service is configured to run on port `8666` (defined in `src/main/resources/application.properties`).
+
+## Storage API Demo
+
+A fully automated demo script `demo.sh` is provided to demonstrate the interaction between the `gryptography` authentication service and the `cafe` storage service.
+
+### Prerequisites
+- The `gryptography` service must be running on port `8080`.
+- The `cafe` service must be running on port `8666`.
+- `openssl`, `curl`, and `jq` must be installed.
+- The script is written for `zsh`.
+
+### Running the Demo
+```bash
+./demo.sh
+```
+
+The script will:
+1. Register a new client with the `gryptography` service.
+2. Perform a challenge-response authentication using embedded Q&A data.
+3. Obtain a JWT token.
+4. Upload a document to the `cafe` storage service.
+5. List the contents of the storage.
+6. Retrieve the uploaded document.
+
 ## The '/www-authenticate' route, what is it?
 
 This endpoint is for testing to see how your browser will react to
@@ -22,7 +55,7 @@ Example GET in raw HTTP:
 
 Example in curl:
 
-        curl -i -X "GET" http://localhost:8080/www-authenticate 
+        curl -i -X "GET" http://localhost:8666/www-authenticate 
 
 
 Example result from previous curl:
@@ -42,7 +75,7 @@ Example in raw HTTP:
 
 Example in curl:
 
-        curl -i -X "POST" -H "Authorization: Coffee answer=\"I stare intently back.\"" http://localhost:8080/www-authenticate
+        curl -i -X "POST" -H "Authorization: Coffee answer=\"I stare intently back.\"" http://localhost:8666/www-authenticate
 
 Example response to previous curl:
 
